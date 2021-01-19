@@ -184,6 +184,7 @@ def minimax(board):
     alpha = -math.inf
     beta = math.inf
     opt_move = None
+    
     # X is the maximizing player
     if player(board) == X:
         best_score = -math.inf
@@ -196,9 +197,12 @@ def minimax(board):
             if move_utility > best_score:
                 best_score = move_utility
                 opt_move = action
-
+                
+    # O is the minimizing player
     elif player(board) == O:
         best_score = math.inf
+        
+        #iterate through all the legal moves to decide which one gives us the min utlity
         for action in actions(board):
             move_utility = evaluation(result(board, action), alpha, beta)
             alpha = max(alpha, move_utility)
@@ -209,7 +213,11 @@ def minimax(board):
 
     return opt_move
 
+
 def evaluation(board, aplha, beta):
+    """
+    Returns a utility value that the computer uses to determine the best move
+    """
     if terminal(board):
         return utility(board)
 
@@ -233,35 +241,5 @@ def evaluation(board, aplha, beta):
                 break
         return best_score
     
-    # # We have the AI (O) trying to minimize the score at the end
-    # minEval = math.inf
-    # maxEval = -(math.inf)
-    # if player(board) == O:
-    #     for action in actions(board):
-    #         evaluation = minimax(result(board, action))
-    #         minEval = min(minEval, evaluation)
-
-
-    #     return minEval
-    # elif player(board) == X:
-    #     for action in actions(board):
-    #         evaluation = minimax(result(board,action))
-    #         maxEval = max(maxEval, evaluation)
-
-
-
-
-# Given a state s:
-    # MAX picks action a in ACTION(S) that produces highest value of Min_Value(Result(S,a))
-    # MIN picks action a in ACTION(S) that produces highest value of Max_Value(Result(S,a)) 
-
-    #function Max-Value(state):
-    #   if Terminal state:
-    #     return Utility(State)
-    #   we want the value as high as possible
-    #   v = -infinity
-    #   for action in Action(state):
-    #       v = MAX(v, MIN_Value(RESULT(state, action)))
-    #   retunr v 
-
+    
 
